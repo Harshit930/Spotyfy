@@ -7,6 +7,10 @@ let masterplay =document.getElementById('masterplay')
 let myprogressbar = document.getElementById('myprogressbar')
 let gif = document.getElementById('gif')
 let songitem = Array.from(document.getElementsByClassName('songitem'))
+let next = document.getElementById("next");
+let previous = document.getElementById("previous");
+let mastersongname = document.querySelector(".mastersongname");
+
 
 
 let songs = [
@@ -68,10 +72,11 @@ const makeallplay = ()=>{
         
 })
 }
-Array.from(document.getElementsByClassName('songitemplay')).forEach((element) =>{
+
+songitem.forEach((element) =>{
     element.addEventListener('click',(e)=>{
         makeallplay();
-        songindexindex = parseInt(e.target.id);
+        songindex = parseInt(e.target.id);
         e.target.classList.remove("fa-play-circle");
         e.target.classList.add("fa-pause-circle");
         audioelement.src = songs[songindex].filePath;
@@ -79,5 +84,53 @@ Array.from(document.getElementsByClassName('songitemplay')).forEach((element) =>
         audioelement.play();
         masterplay.classList.remove('fa-play-circle')
         masterplay.classList.add('fa-pause-circle')
+        gif.style.opacity = 1;
+        mastersongname.innerText= songs[songindex].songName
+
+
     })
+})
+next.addEventListener("click",()=>{
+    if(songindex>=9){
+        songindex = 0;
+
+    }
+    else{
+        songindex+=1
+    }
+    
+        audioelement.src = songs[songindex].filePath;
+        audioelement.currentTime= 0;
+        audioelement.play();
+        masterplay.classList.remove('fa-play-circle')
+        masterplay.classList.add('fa-pause-circle')
+        gif.style.opacity = 1;
+        makeallplay();
+        element.masterplay.classList.remove('fa-play-circle')
+        element.masterplay.classList.add('fa-pause-circle')
+        mastersongname.innerText= songs[songindex].songName
+
+})
+previous.addEventListener("click",()=>{
+    if(songindex>=0){
+        songindex = 0;
+
+    }
+    else{
+        songindex-=1;
+
+    }
+    
+        audioelement.src = songs[songindex].filePath;
+        audioelement.currentTime= 0;
+        audioelement.play();
+        masterplay.classList.remove('fa-play-circle');
+        masterplay.classList.add('fa-pause-circle');
+        mastersongname.innerText= songs[songindex].songName
+
+        gif.style.opacity = 1;
+        makeallplay();
+        masterplay.classList.remove('fa-play-circle');
+        masterplay.classList.add('fa-pause-circle');
+
 })
